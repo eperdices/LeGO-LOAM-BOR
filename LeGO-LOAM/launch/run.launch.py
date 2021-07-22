@@ -24,22 +24,22 @@ def generate_launch_description():
   # Tf transformations
   transform_map = Node(
     package='tf2_ros',
-    node_executable='static_transform_publisher',
-    node_name='camera_init_to_map',
+    executable='static_transform_publisher',
+    name='camera_init_to_map',
     arguments=['0', '0', '0', '1.570795', '0', '1.570795', 'map', 'camera_init'],
   )
 
   transform_camera = Node(
     package='tf2_ros',
-    node_executable='static_transform_publisher',
-    node_name='base_link_to_camera',
+    executable='static_transform_publisher',
+    name='base_link_to_camera',
     arguments=['0', '0', '0', '-1.570795', '-1.570795', '0', 'camera', 'base_link'],
   )
 
   # LeGO-LOAM
   lego_loam_node = Node(
     package='lego_loam_sr',
-    node_executable='lego_loam_sr',
+    executable='lego_loam_sr',
     output='screen',
     parameters=[config_file],
     remappings=[('/lidar_points', '/velodyne_points')],
@@ -48,8 +48,8 @@ def generate_launch_description():
   # Rviz
   rviz_node = Node(
     package='rviz2',
-    node_executable='rviz2',
-    node_name='rviz2',
+    executable='rviz2',
+    name='rviz2',
     arguments=['-d', rviz_config],
     output='screen'
   )
