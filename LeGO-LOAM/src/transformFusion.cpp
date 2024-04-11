@@ -31,6 +31,7 @@
 //     Robotics: Science and Systems Conference (RSS). Berkeley, CA, July 2014.
 
 #include "transformFusion.h"
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 TransformFusion::TransformFusion(const std::string &name) : Node(name) {
   pubLaserOdometry2 = this->create_publisher<nav_msgs::msg::Odometry>("/integrated_to_init", 5);
@@ -188,7 +189,10 @@ void TransformFusion::laserOdometryHandler(
   tf2::Quaternion q;
   geometry_msgs::msg::Quaternion geoQuat;
   q.setRPY(transformMapped[2], -transformMapped[0], -transformMapped[1]);
-  geoQuat = tf2::toMsg(q);
+  geoQuat.x = q.x();
+  geoQuat.y = q.y();
+  geoQuat.z = q.z();
+  geoQuat.w = q.w();
 
   laserOdometry2.header.stamp = laserOdometry->header.stamp;
   laserOdometry2.pose.pose.orientation.x = -geoQuat.y;

@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
   RCLCPP_INFO(TF->get_logger(), "\033[1;32m---->\033[0m Started.");
 
   // Use 4 threads
-  rclcpp::executors::MultiThreadedExecutor executor(rclcpp::executor::create_default_executor_arguments(), 4);
+  rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(IP);
   executor.add_node(FA);
   executor.add_node(MO);
