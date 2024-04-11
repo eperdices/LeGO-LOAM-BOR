@@ -27,6 +27,7 @@ The system takes in point cloud from a Velodyne VLP-16 Lidar (palced horizontal)
   cmake ..
   sudo make install
   ```
+  如果是Ubuntu22.04版本安装4.2以上的gtsam
 
 ## 3. Compile
 

@@ -54,15 +54,15 @@ ImageProjection::ImageProjection(const std::string &name, Channel<ProjectionOut>
   _pub_outlier_cloud = this->create_publisher<sensor_msgs::msg::PointCloud2>("/outlier_cloud", 1);
 
   // Declare parameters
-  this->declare_parameter(PARAM_VERTICAL_SCANS);
-  this->declare_parameter(PARAM_HORIZONTAL_SCANS);
-  this->declare_parameter(PARAM_ANGLE_BOTTOM);
-  this->declare_parameter(PARAM_ANGLE_TOP);
-  this->declare_parameter(PARAM_GROUND_INDEX);
-  this->declare_parameter(PARAM_SENSOR_ANGLE);
-  this->declare_parameter(PARAM_SEGMENT_THETA);
-  this->declare_parameter(PARAM_SEGMENT_POINT);
-  this->declare_parameter(PARAM_SEGMENT_LINE);
+  this->declare_parameter<int>(PARAM_VERTICAL_SCANS);
+  this->declare_parameter<int>(PARAM_HORIZONTAL_SCANS);
+  this->declare_parameter<double>(PARAM_ANGLE_BOTTOM);
+  this->declare_parameter<double>(PARAM_ANGLE_TOP);
+  this->declare_parameter<int>(PARAM_GROUND_INDEX);
+  this->declare_parameter<double>(PARAM_SENSOR_ANGLE);
+  this->declare_parameter<double>(PARAM_SEGMENT_THETA);
+  this->declare_parameter<int>(PARAM_SEGMENT_POINT);
+  this->declare_parameter<int>(PARAM_SEGMENT_LINE);
 
   float vertical_angle_top;
 

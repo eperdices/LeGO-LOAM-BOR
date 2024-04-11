@@ -36,6 +36,7 @@
 
 #include "mapOptimization.h"
 #include <future>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 using namespace gtsam;
 
@@ -84,13 +85,13 @@ MapOptimization::MapOptimization(const std::string &name, Channel<AssociationOut
   aftMappedTrans.child_frame_id = "aft_mapped";
 
   // Declare parameters
-  this->declare_parameter(PARAM_ENABLE_LOOP);
-  this->declare_parameter(PARAM_SEARCH_RADIUS);
-  this->declare_parameter(PARAM_SEARCH_NUM);
-  this->declare_parameter(PARAM_HISTORY_SEARCH_RADIUS);
-  this->declare_parameter(PARAM_HISTORY_SEARCH_NUM);
-  this->declare_parameter(PARAM_HISTORY_SCORE);
-  this->declare_parameter(PARAM_GLOBAL_SEARCH_RADIUS);
+  this->declare_parameter<bool>(PARAM_ENABLE_LOOP);
+  this->declare_parameter<double>(PARAM_SEARCH_RADIUS);
+  this->declare_parameter<int>(PARAM_SEARCH_NUM);
+  this->declare_parameter<double>(PARAM_HISTORY_SEARCH_RADIUS);
+  this->declare_parameter<int>(PARAM_HISTORY_SEARCH_NUM);
+  this->declare_parameter<double>(PARAM_HISTORY_SCORE);
+  this->declare_parameter<double>(PARAM_GLOBAL_SEARCH_RADIUS);
 
   // Read parameters
   if (!this->get_parameter(PARAM_ENABLE_LOOP, _loop_closure_enabled)) {
@@ -500,7 +501,10 @@ void MapOptimization::publishTF() {
   tf2::Quaternion q;
   geometry_msgs::msg::Quaternion geoQuat;
   q.setRPY(transformAftMapped[2], -transformAftMapped[0], -transformAftMapped[1]);
-  geoQuat = tf2::toMsg(q);
+  geoQuat.x = q.x();
+  geoQuat.y = q.y();
+  geoQuat.z = q.z();
+  geoQuat.w = q.w();
 
   odomAftMapped.header.stamp = timeLaserOdometry;
   odomAftMapped.pose.pose.orientation.x = -geoQuat.y;
